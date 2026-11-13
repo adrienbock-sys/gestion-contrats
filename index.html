@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gestion de contrats</title>
+  <meta name="description" content="Application web de gestion de contrats : suivi, échéances, statuts et export." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">📄 Gestion de contrats</div>
+    <div class="actions">
+      <button id="btn-seed" class="btn ghost" type="button">Données démo</button>
+      <button id="btn-export" class="btn ghost" type="button">Export CSV</button>
+      <button id="btn-new" class="btn primary" type="button">+ Nouveau contrat</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats" id="stats"></section>
+
+    <section class="alerts" id="alerts" hidden></section>
+
+    <section class="toolbar">
+      <input id="search" type="search" placeholder="Rechercher (client, référence, objet)…" />
+      <select id="filter-status">
+        <option value="">Tous les statuts</option>
+        <option value="brouillon">Brouillon</option>
+        <option value="actif">Actif</option>
+        <option value="a_renouveler">À renouveler</option>
+        <option value="termine">Terminé</option>
+        <option value="resilie">Résilié</option>
+      </select>
+    </section>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Référence</th>
+            <th>Client</th>
+            <th>Objet</th>
+            <th>Début</th>
+            <th>Échéance</th>
+            <th class="num">Montant</th>
+            <th>Statut</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p class="empty" id="empty" hidden>Aucun contrat. Crée-en un ou charge les données démo.</p>
+    </div>
+  </main>
+
+  <dialog id="dialog">
+    <form id="form" method="dialog">
+      <h2 id="dialog-title">Nouveau contrat</h2>
+      <input type="hidden" id="f-id" />
+      <div class="grid">
+        <label>Référence<input id="f-ref" required /></label>
+        <label>Client<input id="f-client" required /></label>
+        <label class="full">Objet<input id="f-object" required /></label>
+        <label>Début<input id="f-start" type="date" required /></label>
+        <label>Échéance<input id="f-end" type="date" required /></label>
+        <label>Montant (€)<input id="f-amount" type="number" min="0" step="0.01" required /></label>
+        <label>Statut
+          <select id="f-status">
+            <option value="brouillon">Brouillon</option>
+            <option value="actif">Actif</option>
+            <option value="a_renouveler">À renouveler</option>
+            <option value="termine">Terminé</option>
+            <option value="resilie">Résilié</option>
+          </select>
+        </label>
+        <label class="full">Contact<input id="f-contact" placeholder="Nom, email…" /></label>
+        <label class="full">Notes<textarea id="f-notes" rows="3"></textarea></label>
+      </div>
+      <menu class="dialog-actions">
+        <button value="cancel" class="btn ghost" type="button" id="btn-cancel">Annuler</button>
+        <button value="default" class="btn primary" type="submit">Enregistrer</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
